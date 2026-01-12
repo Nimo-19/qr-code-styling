@@ -126,7 +126,13 @@ export default class QRCodeStyling {
       return;
     }
 
+    console.log("++++++++++++++++++++++++++++++++++++++++OPTIONS");
+    console.log(this._options.qrOptions.byteModeStringEncoding);
+    console.log(qrcode.stringToBytes);
+    console.log(qrcode.stringToBytesFuncs[this._options.qrOptions.byteModeStringEncoding || "default"]);
+
     qrcode.stringToBytes = qrcode.stringToBytesFuncs[this._options.qrOptions.byteModeStringEncoding || "default"];
+    console.log(qrcode.stringToBytes);
 
     this._qr = qrcode(this._options.qrOptions.typeNumber, this._options.qrOptions.errorCorrectionLevel);
     this._qr.addData(this._options.data, this._options.qrOptions.mode || getMode(this._options.data));
