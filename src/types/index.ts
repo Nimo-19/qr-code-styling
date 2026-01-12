@@ -1,5 +1,5 @@
 import { DOMWindow, JSDOM } from "jsdom";
-import nodeCanvas  from "canvas";
+import nodeCanvas from "canvas";
 
 export interface UnknownObject {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -94,6 +94,7 @@ export type TypeNumber =
 
 export type ErrorCorrectionLevel = "L" | "M" | "Q" | "H";
 export type Mode = "Numeric" | "Alphanumeric" | "Byte" | "Kanji";
+export type ByteModeStringEncoding = "default" | "UTF-8" | "SJIS";
 export interface QRCode {
   addData(data: string, mode?: Mode): void;
   make(): void;
@@ -122,6 +123,7 @@ export type Options = {
     typeNumber?: TypeNumber;
     mode?: Mode;
     errorCorrectionLevel?: ErrorCorrectionLevel;
+    byteModeStringEncoding?: ByteModeStringEncoding;
   };
   imageOptions?: {
     saveAsBlob?: boolean;

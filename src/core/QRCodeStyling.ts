@@ -76,7 +76,7 @@ export default class QRCodeStyling {
       const svg = this._svg;
       const xml = new this._window.XMLSerializer().serializeToString(svg);
       const svg64 = btoa(xml);
-      const image64 = `data:${getMimeType('svg')};base64,${svg64}`;
+      const image64 = `data:${getMimeType("svg")};base64,${svg64}`;
 
       if (this._options.nodeCanvas?.loadImage) {
         return this._options.nodeCanvas.loadImage(image64).then((image: Image) => {
@@ -125,6 +125,8 @@ export default class QRCodeStyling {
     if (!this._options.data) {
       return;
     }
+
+    qrcode.stringToBytes = qrcode.stringToBytesFuncs[this._options.qrOptions.byteModeStringEncoding || "default"];
 
     this._qr = qrcode(this._options.qrOptions.typeNumber, this._options.qrOptions.errorCorrectionLevel);
     this._qr.addData(this._options.data, this._options.qrOptions.mode || getMode(this._options.data));
@@ -196,7 +198,7 @@ export default class QRCodeStyling {
     } else {
       return new Promise((resolve) => {
         const canvas = element;
-        if ('toBuffer' in canvas) {
+        if ("toBuffer" in canvas) {
           // Different call is needed to prevent error TS2769: No overload matches this call.
           if (mimeType === "image/png") {
             resolve(canvas.toBuffer(mimeType));
@@ -207,8 +209,8 @@ export default class QRCodeStyling {
           } else {
             throw Error("Unsupported extension");
           }
-        } else if ('toBlob' in canvas) {
-          (canvas).toBlob(resolve, mimeType, 1);
+        } else if ("toBlob" in canvas) {
+          canvas.toBlob(resolve, mimeType, 1);
         }
       });
     }
